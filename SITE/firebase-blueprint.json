@@ -1,0 +1,163 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "university": { "type": "string", "maxLength": 100 },
+        "course": { "type": "string", "maxLength": 100 },
+        "period": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["createdAt", "updatedAt"]
+    },
+    "Nota": {
+      "title": "Grade Record",
+      "description": "Record of a course grade and status",
+      "type": "object",
+      "properties": {
+        "periodo": { "type": "string", "maxLength": 20 },
+        "componente": { "type": "string", "maxLength": 150 },
+        "nota1": { "type": "number" },
+        "nota2": { "type": "number" },
+        "nota3": { "type": "number" },
+        "final": { "type": "number" },
+        "media": { "type": "number" },
+        "frequencia": { "type": "number" },
+        "situacao": { "type": "string", "maxLength": 20 },
+        "ch": { "type": "number" },
+        "archived": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["componente", "situacao", "archived", "createdAt", "updatedAt"]
+    },
+    "Frequencia": {
+      "title": "Attendance Record",
+      "description": "Record of attendance for a class",
+      "type": "object",
+      "properties": {
+        "componente": { "type": "string", "maxLength": 150 },
+        "status": { "type": "string", "maxLength": 50 },
+        "data": { "type": "string", "maxLength": 20 },
+        "quantidade": { "type": "number" },
+        "justificativa": { "type": "string", "maxLength": 500 },
+        "professor": { "type": "string", "maxLength": 100 },
+        "archived": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["componente", "status", "data", "archived", "createdAt", "updatedAt"]
+    },
+    "Progresso": {
+      "title": "Progress Item",
+      "description": "Record of progress towards degree",
+      "type": "object",
+      "properties": {
+        "disciplina": { "type": "string", "maxLength": 150 },
+        "tipo": { "type": "string", "maxLength": 50 },
+        "ch": { "type": "number" },
+        "status": { "type": "string", "maxLength": 50 },
+        "archived": { "type": "boolean" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["disciplina", "tipo", "ch", "status", "archived", "createdAt", "updatedAt"]
+    },
+    "Disciplina": {
+      "title": "Course Reference",
+      "description": "Reference of a course in the program",
+      "type": "object",
+      "properties": {
+        "nome": { "type": "string", "maxLength": 100 },
+        "completo": { "type": "string", "maxLength": 200 },
+        "periodo": { "type": "string", "maxLength": 20 },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["nome", "completo", "createdAt", "updatedAt"]
+    },
+    "Horario": {
+      "title": "Class Schedule",
+      "description": "Weekly class schedule entry",
+      "type": "object",
+      "properties": {
+        "dia": { "type": "string", "maxLength": 20 },
+        "disciplina": { "type": "string", "maxLength": 100 },
+        "sala": { "type": "string", "maxLength": 50 },
+        "bloco": { "type": "string", "maxLength": 50 },
+        "ordem": { "type": "number" },
+        "createdAt": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["dia", "disciplina", "sala", "bloco", "ordem", "createdAt", "updatedAt"]
+    },
+    "RuConfig": {
+      "title": "RU Passes and Geofence Config",
+      "description": "Restaurante Universitário passes count and auto-deduction settings",
+      "type": "object",
+      "properties": {
+        "saldo": { "type": "number" },
+        "autoDeductEnabled": { "type": "boolean" },
+        "targetLat": { "type": "number" },
+        "targetLng": { "type": "number" },
+        "radiusMeters": { "type": "number" },
+        "lastAutoDeductTimestamp": { "type": "number" },
+        "lastAutoDeductDateStr": { "type": "string" },
+        "updatedAt": { "type": "number" }
+      },
+      "required": ["saldo", "autoDeductEnabled", "updatedAt"]
+    },
+    "RuLog": {
+      "title": "RU Pass Log",
+      "description": "Log of pass addition, manual usage, or auto deduction",
+      "type": "object",
+      "properties": {
+        "tipo": { "type": "string", "maxLength": 50 },
+        "quantidade": { "type": "number" },
+        "saldoResultante": { "type": "number" },
+        "motivo": { "type": "string", "maxLength": 200 },
+        "timestamp": { "type": "number" },
+        "dataHora": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["tipo", "quantidade", "saldoResultante", "timestamp"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "users/{userId}/notas/{notaId}": {
+      "schema": "Nota",
+      "description": "Grades and course enrollments"
+    },
+    "users/{userId}/freqs/{freqId}": {
+      "schema": "Frequencia",
+      "description": "Attendance records"
+    },
+    "users/{userId}/progs/{progId}": {
+      "schema": "Progresso",
+      "description": "Academic progress records"
+    },
+    "users/{userId}/discs/{discId}": {
+      "schema": "Disciplina",
+      "description": "Course catalog"
+    },
+    "users/{userId}/horarios/{horarioId}": {
+      "schema": "Horario",
+      "description": "Class schedule entries"
+    },
+    "users/{userId}/ru/{docId}": {
+      "schema": "RuConfig",
+      "description": "User RU pass count and preferences"
+    },
+    "users/{userId}/ru_logs/{logId}": {
+      "schema": "RuLog",
+      "description": "History of RU pass usage and refills"
+    }
+  }
+}

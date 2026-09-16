@@ -1,0 +1,6 @@
+{
+  "name": "UFRPE Tracker",
+  "description": "Acompanhamento acadêmico e histórico de disciplinas da UFRPE.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
